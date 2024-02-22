@@ -14,7 +14,8 @@ export class GestionComponent implements OnInit {
   /*Variables */
   personas: any[] = [];
   numero: string | null = '';
-  @ViewChild('register') registerComponent: SignInComponent = new SignInComponent();
+  @ViewChild('register') registerComponent: SignInComponent =
+    new SignInComponent();
 
   constructor(
     private gestionPersonasService: GestionPersonasService,
@@ -25,9 +26,8 @@ export class GestionComponent implements OnInit {
     this.getAllPersons();
   }
 
-
   getAllPersons() {
-   this.gestionPersonasService.getAllPersonas().subscribe({
+    this.gestionPersonasService.getAllPersonas().subscribe({
       next: (data) => {
         this.personas = data.map((item: any) => {
           return {
@@ -43,7 +43,6 @@ export class GestionComponent implements OnInit {
       },
     });
   }
-
 
   add_persona(persona: any) {
     this.gestionPersonasService.addPersona(persona).subscribe({
@@ -61,7 +60,9 @@ export class GestionComponent implements OnInit {
   delete_persona(personaTable: any) {
     this.gestionPersonasService.deletePersona(personaTable.id).subscribe({
       next: () => {
-        this.personas = this.personas.filter((item) => item.id != personaTable.id);
+        this.personas = this.personas.filter(
+          (item) => item.id != personaTable.id
+        );
       },
       error: (error) => {
         console.error('There was an error!', error);
