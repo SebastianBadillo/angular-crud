@@ -1,0 +1,23 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  margin: 0 auto;
+}
+input {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 0.1rem;
+}
+input:focus,
+input:active {
+  outline: none;
+}
+button {
+  width: 30%;
+  border: 1rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}

@@ -1,0 +1,7 @@
+<div class="info" (keydown.enter)="print()">
+  <input type="text" placeholder="Nombre" [(ngModel)]="persona.name">
+  <input type="text" placeholder="Apellido" [(ngModel)]="persona.apellido">
+  <input type="email" placeholder="email" [(ngModel)]="persona.email">
+
+  <button type="button" (click)="print()">Enviar</button>
+</div>

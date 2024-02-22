@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 20rem;
+}
+h2 {
+  margin-top: 2rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+svg {
+  width: 1rem;
+  margin: 0.5rem;
+}
+.persona {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10rem;
+}
