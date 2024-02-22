@@ -1,7 +1,4 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-
-import { MatDialog } from '@angular/material/dialog';
-import { EditarComponent } from '../editar/editar.component';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',

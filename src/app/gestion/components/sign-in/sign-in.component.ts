@@ -6,10 +6,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
   /**Variables */
-  @Output()
-  informacion: EventEmitter<any> =
+  @Output() private informacion: EventEmitter<any> =
     new EventEmitter<any>(); /**Emitir la persona registrada */
-  persona: any = {
+  protected persona: any = {
     name: '',
     apellido: '',
     email: '',
@@ -18,23 +17,21 @@ export class SignInComponent implements OnInit {
   ngOnInit() {}
   constructor() {}
   /**Functions */
-  print(): void {
+  protected print(): void {
     if (this.persona.name && this.persona.apellido && this.persona.email) {
       const clone = { ...this.persona };
-      clone.id = new Date().getMilliseconds();
       this.sendData(clone);
-      this.clean();
     } else {
       alert('Todos los campos deben ser diligenciados');
     }
   }
-  clean(): void {
+  public clean(): void {
     this.persona.name = '';
     this.persona.apellido = '';
     this.persona.email = '';
   }
 
-  sendData(clone: any) {
+  private sendData(clone: any) {
     this.informacion.emit(clone);
   }
 }

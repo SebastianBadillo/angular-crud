@@ -1,5 +1,5 @@
 <h1>CRUD-APP</h1>
-<app-sign-in (informacion)="add_persona($event)"></app-sign-in>
+<app-sign-in #register (informacion)="add_persona($event)"></app-sign-in>
 <app-table
   [informacion]="personas"
   (deleteEvent)="delete_persona($event)"

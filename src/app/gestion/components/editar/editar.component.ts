@@ -12,6 +12,7 @@ import {
 })
 export class EditarComponent implements OnInit {
   personaEditada: any = {
+    id: '',
     nombre: '',
     apellido: '',
     email: '',
