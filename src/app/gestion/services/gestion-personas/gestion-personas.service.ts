@@ -1,35 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class GestionPersonasService {
+  urlBackend = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
 
   getAllPersonas() {
-    return JSON.parse(localStorage.getItem('personas') || '[]');
+    return this.http.get<any>(`${this.urlBackend}/person/get-persons`);
   }
 
-  addPersona(persona: any) {
-    const personas = this.getAllPersonas();
-    personas.push(persona);
-    localStorage.setItem('personas', JSON.stringify(personas));
-    return personas;
+  addPersona(persona: any): Observable<any> {
+    return this.http.post<any>(`${this.urlBackend}/person/add-person`, {
+      nombre: persona.name,
+      apellido: persona.apellido,
+      email: persona.email,
+    });
   }
 
-  deletePersona(id: string) {
-    const personas = this.getAllPersonas();
-    const newPersonas = personas.filter((persona: any) => persona.id !== id);
-    localStorage.setItem('personas', JSON.stringify(newPersonas));
-    return newPersonas;
+  deletePersona(id: string): Observable<any> {
+    return this.http.delete<any>(
+      `${this.urlBackend}/person/delete-person/${id}`
+    );
   }
 
-  editPersonas() {
-    const personas = this.getAllPersonas();
-    localStorage.setItem('personas', JSON.stringify(personas));
-    return personas;
+  editPersonas(persona: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.urlBackend}/person/update-person`,
+      persona
+    );
   }
 
   getPosts() {
-    return this.http.get('https://my-json-server.typicode.com/JSGund/XHR-Fetch-Request-JavaScript/posts');
+    return this.http.get(
+      'https://my-json-server.typicode.com/JSGund/XHR-Fetch-Request-JavaScript/posts'
+    );
   }
 }
