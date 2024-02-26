@@ -25,7 +25,7 @@ export class GestionComponent implements OnInit {
   ngOnInit() {
     this.getAllPersons();
   }
-
+  /** Functions*/
   getAllPersons() {
     this.gestionPersonasService.getAllPersonas().subscribe({
       next: (data) => {
@@ -45,14 +45,15 @@ export class GestionComponent implements OnInit {
   }
 
   add_persona(persona: any) {
+    // this.personas = this.gestionPersonasService.addPersona(persona);
     this.gestionPersonasService.addPersona(persona).subscribe({
       next: (data) => {
         const clone = { ...data, name: data.nombre };
+
         this.personas.push(clone);
-        this.registerComponent.clean();
       },
       error: (error) => {
-        console.error('There was an error!', error);
+        console.log('There was an error!', error);
       },
     });
   }
@@ -60,9 +61,7 @@ export class GestionComponent implements OnInit {
   delete_persona(personaTable: any) {
     this.gestionPersonasService.deletePersona(personaTable.id).subscribe({
       next: () => {
-        this.personas = this.personas.filter(
-          (item) => item.id != personaTable.id
-        );
+        this.getAllPersons();
       },
       error: (error) => {
         console.error('There was an error!', error);
@@ -80,10 +79,12 @@ export class GestionComponent implements OnInit {
       },
     });
     popUp.afterClosed().subscribe((item) => {
+      // cambiar el item dentro del arreglo personas
       this.gestionPersonasService.editPersonas(item).subscribe({
         next: (data) => {
+          // this.getAllPersons();
           this.personas = this.personas.map((item) => {
-            if (item.id == personaTable.id) {
+            if (item.id == data.id) {
               return {
                 id: item.id,
                 name: data.nombre,

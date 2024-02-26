@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -8,27 +9,33 @@ export class SignInComponent implements OnInit {
   /**Variables */
   @Output() private informacion: EventEmitter<any> =
     new EventEmitter<any>(); /**Emitir la persona registrada */
-  protected persona: any = {
-    name: '',
-    apellido: '',
-    email: '',
-  };
+  // persona: any = {
+  //   name: '',
+  //   apellido: '',
+  //   email: '',
+  // };
+  persona: FormGroup | any;
   /**life cicle functions */
-  ngOnInit() {}
+  ngOnInit() {
+    this.persona = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      apellido: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+    });
+  }
   constructor() {}
   /**Functions */
-  protected print(): void {
-    if (this.persona.name && this.persona.apellido && this.persona.email) {
-      const clone = { ...this.persona };
+  print(): void {
+    if (this.persona.status == 'VALID') {
+      const clone = { ...this.persona.value };
+      clone.id = new Date().getMilliseconds();
       this.sendData(clone);
     } else {
       alert('Todos los campos deben ser diligenciados');
     }
   }
-  public clean(): void {
-    this.persona.name = '';
-    this.persona.apellido = '';
-    this.persona.email = '';
+  clean(): void {
+    this.persona.reset();
   }
 
   private sendData(clone: any) {

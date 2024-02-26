@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GestionComponent } from './gestion.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { TableComponent } from './components/table/table.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GestionRoutingModule } from './gestion-routing.module';
 import { EditarComponent } from './components/editar/editar.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   /**In the declarations, we type the components we need to use */
   declarations: [
