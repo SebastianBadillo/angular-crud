@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
-  MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
 
@@ -11,29 +11,35 @@ import {
   styleUrls: ['./editar.component.css'],
 })
 export class EditarComponent implements OnInit {
-  personaEditada: any = {
-    id: '',
-    nombre: '',
-    apellido: '',
-    email: '',
-  };
+  form: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private ref: MatDialogRef<EditarComponent>
+    private ref: MatDialogRef<EditarComponent>,
+    private fb: FormBuilder
   ) {}
   ngOnInit() {
-    this.personaEditada = this.data;
+    this.buildForm();
+    this.form.patchValue(this.data);
+  }
+
+  private buildForm(): void {
+    this.form = this.fb.group({
+      nombre: [''],
+      apellido: [''],
+      email: [''],
+    });
   }
 
   closePopUp() {
-    const clone = { ...this.personaEditada };
-    this.clean();
-    this.ref.close(clone);
+    const clone = this.form.value;
+    if (this.form.valid) {
+      this.ref.close(clone);
+    } else {
+      alert('Todos los campos deben ser diligenciados');
+    }
   }
   clean() {
-    this.personaEditada.nombre = '';
-    this.personaEditada.apellido = '';
-    this.personaEditada.email = '';
+    this.form.reset();
   }
 }

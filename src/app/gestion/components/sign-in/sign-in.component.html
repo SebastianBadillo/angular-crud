@@ -6,9 +6,29 @@
   <button type="button" (click)="print()">Enviar</button>
 </div> -->
 <div class="info" (keydown.enter)="print()" [formGroup]="persona">
-  <input type="text" placeholder="Nombre" formControlName="name">
-  <input type="text" placeholder="Apellido" formControlName="apellido">
-  <input type="email" placeholder="email" formControlName="email">
+  <input type="text" placeholder="Nombre" formControlName="name" />
+  <div *ngIf="persona.get('name').invalid && persona.get('name').touched">
+    <div *ngIf="persona.get('name').errors.required" class="error-text">
+      El nombre es obligatorio
+    </div>
+    <div *ngIf="persona.get('name').errors.minlength" class="error-text">
+      El nombre debe tener al menos 2 caracteres
+    </div>
+  </div>
+  <input type="text" placeholder="Apellido" formControlName="apellido" />
+  <div
+    *ngIf="persona.get('apellido').invalid && persona.get('apellido').touched"
+  >
+    <div *ngIf="persona.get('apellido').errors.required" class="error-text">
+      El apellido es obligatorio
+    </div>
+  </div>
+  <input type="email" placeholder="email" formControlName="email" />
+  <div *ngIf="persona.get('email').invalid && persona.get('email').touched">
+    <div *ngIf="persona.get('email').errors.required" class="error-text">
+      El email es obligatorio
+    </div>
+  </div>
 
   <button type="button" (click)="print()">Enviar</button>
 </div>

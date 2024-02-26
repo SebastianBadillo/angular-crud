@@ -1,34 +1,38 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
-  /**Variables */
-  @Output() private informacion: EventEmitter<any> =
-    new EventEmitter<any>(); /**Emitir la persona registrada */
-  // persona: any = {
-  //   name: '',
-  //   apellido: '',
-  //   email: '',
-  // };
-  persona: FormGroup | any;
+  /**Emitir la persona registrada */
+  @Output() private informacion: EventEmitter<any> = new EventEmitter<any>();
+  persona: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
   /**life cicle functions */
   ngOnInit() {
-    this.persona = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      apellido: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.persona = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', Validators.required],
+      email: ['', Validators.required],
     });
   }
-  constructor() {}
+
   /**Functions */
   print(): void {
     if (this.persona.status == 'VALID') {
+      // aqui se clona el objeto persona
       const clone = { ...this.persona.value };
-      clone.id = new Date().getMilliseconds();
       this.sendData(clone);
     } else {
       alert('Todos los campos deben ser diligenciados');

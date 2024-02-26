@@ -15,7 +15,7 @@ export class GestionComponent implements OnInit {
   personas: any[] = [];
   numero: string | null = '';
   @ViewChild('register') registerComponent: SignInComponent =
-    new SignInComponent();
+    new SignInComponent(null);
 
   constructor(
     private gestionPersonasService: GestionPersonasService,

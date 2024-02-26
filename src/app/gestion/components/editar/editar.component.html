@@ -1,24 +1,26 @@
 <h3>Editar persona</h3>
-<div class="container">
-  <label for="">Nombre</label>
-  <input
-    type="text"
-    placeholder="Digite el nombre"
-    [(ngModel)]="personaEditada.nombre"
-  />
-  <label for="">Apellido</label>
-  <input
-    type="text"
-    placeholder="Digite el apellido"
-    [(ngModel)]="personaEditada.apellido"
-  />
-  <label for="">Email</label>
-  <input
-    type="email"
-    placeholder="Digite el correo"
-    [(ngModel)]="personaEditada.email"
-  />
-  <button type="button" mat-button matDialogClose (click)="closePopUp()">
-    Finalizar
-  </button>
-</div>
+<form [formGroup]="form">
+  <div class="container">
+    <label for="">Nombre</label>
+    <input
+      type="text"
+      placeholder="Digite el nombre"
+      formControlName="nombre"
+    />
+    <label for="">Apellido</label>
+    <input
+      type="text"
+      placeholder="Digite el apellido"
+      formControlName="apellido"
+    />
+    <label for="">Email</label>
+    <input
+      type="email"
+      placeholder="Digite el correo"
+      formControlName="email"
+    />
+    <button type="button" mat-button matDialogClose (click)="closePopUp()">
+      Finalizar
+    </button>
+  </div>
+</form>
